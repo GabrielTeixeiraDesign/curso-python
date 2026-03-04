@@ -1,20 +1,27 @@
 import os
 
-# 1. Definimos o nome do projeto e as pastas que queremos
-nome_projeto = "Projeto_Novo_Cliente"
-pastas = ["01_Assets", "02_Design_Framer", "03_Prints_Aprovacao", "04_Final_Entrega"]
+# Tentamos o caminho normal
+try:
+    with open("projetos.txt", "r") as arquivo:
+        lista_projetos = arquivo.readlines()
+    print("✅ Sucesso: Lista de projetos carregada!")
 
-print(f"--- Iniciando automação para o projeto: {nome_projeto} ---")
+# Se o arquivo não existir, o Python executa este bloco em vez de quebrar
+except FileNotFoundError:
+    print("⚠️ Aviso: O arquivo 'projetos.txt' não foi encontrado.")
+    print("Usando lista de backup temporária...")
+    lista_projetos = ["Projeto_Emergencia_1", "Projeto_Emergencia_2"]
 
-# 2. O Loop que cria as pastas automaticamente
-for pasta in pastas:
-    caminho = os.path.join(nome_projeto, pasta)
-    
-    if not os.path.exists(caminho):
-        os.makedirs(caminho)
-        print(f"✅ Pasta criada: {pasta}")
-    else:
-        print(f"⚠️ A pasta {pasta} já existe.")
+# O restante do código (criação de pastas) continua igual
+pastas_padrao = ["01_Assets", "02_Design", "03_Final"]
 
-print("--- Tudo pronto! Boa sorte no design! ---")
-import os
+for projeto in lista_projetos:
+    nome_limpo = projeto.strip()
+    if not nome_limpo:
+        continue
+        
+    print(f"📁 Criando estrutura para: {nome_limpo}")
+    for subpasta in pastas_padrao:
+        caminho = os.path.join(nome_limpo, subpasta)
+        if not os.path.exists(caminho):
+            os.makedirs(caminho)
