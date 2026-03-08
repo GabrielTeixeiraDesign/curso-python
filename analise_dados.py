@@ -53,3 +53,32 @@ print("✅ Gráfico salvo como 'grafico_faturamento.png'!")
 
 # 4. Mostra o gráfico na tela (opcional)
 plt.show()
+import matplotlib.pyplot as plt
+
+# 1. Defina suas variáveis de cores (Direto do seu projeto no Figma)
+roxo_figma = "#5551FF"
+coral_figma = "#FF7262"
+laranja_figma = "#F24E1E"
+verde_figma = "#0ACF83"
+preto_urbano = "#1A1A1A" # Cor base para combinar com seu estilo de grafite
+
+# 2. Criando o gráfico com cores personalizadas
+plt.figure(figsize=(10, 6)) # Define o tamanho da imagem
+
+# Passamos uma lista de cores para as barras
+cores_projeto = [roxo_figma, coral_figma, laranja_figma, verde_figma]
+
+plt.bar(df["projeto"], df["faturamento_total"], color=cores_projeto)
+
+# 3. Customizando o estilo (UX da Informação)
+plt.title("Faturamento por Projeto", fontsize=16, color=preto_urbano, fontweight='bold')
+plt.ylabel("Valor (R$)", fontsize=12)
+plt.grid(axis='y', linestyle='--', alpha=0.7) # Adiciona linhas de guia leves
+
+# 4. Salvando com alta qualidade para o portfólio
+plt.savefig("grafico_estilizado.png", dpi=300, bbox_inches='tight')
+plt.show()
+plt.style.use('dark_background') # Ativa o modo escuro automático
+# Ou mude manualmente:
+plt.rcParams['axes.facecolor'] = '#222222'
+plt.rcParams['figure.facecolor'] = '#111111'
